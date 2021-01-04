@@ -162,20 +162,20 @@ class RandomStringGenerator {
           .map((e) => String.fromCharCode(e))
           .toList();
 
-  /// Upper alphabet, created by generating the ASCII DEC values
+  /// Lower alphabet, created by generating the ASCII DEC values
   /// and converting them to their [String] representation.
   static final _lowerAlphabetAsciiToString =
       List<int>.generate(26, (int index) => index + 97)
           .map((e) => String.fromCharCode(e))
           .toList();
 
-  /// Upper alphabet, created by generating the ASCII DEC values
+  /// Digits (as Strigs), created by generating the ASCII DEC values
   /// and converting them to their [String] representation.
   static final _digitsAsciiToString = List<int>.generate(10, (int index) => index + 48)
       .map((e) => String.fromCharCode(e))
       .toList();
 
-  /// Upper alphabet, created by generating the ASCII DEC values
+  /// Symbols, created by generating the ASCII DEC values
   /// and converting them to their [String] representation.
   static final _symbolsAsciiToString = <int>[
     ...List<int>.generate(15, (int index) => index + 33),
