@@ -38,13 +38,19 @@ void main() {
     });
   });
 
-  group('New test', () {
-    test('Specific test', () {
+  group('Specific tests', () {
+    test('Test hasDigits parameter set to false', () {
       var generator = RandomStringGenerator(fixedLength: 10, hasDigits: false);
       final newValue = generator.generate();
-      final hasDigit = newValue.contains(new RegExp(r'[0-9]'));
-      print('noDigitValue > $newValue');
-      print('hasDigit > $hasDigit');
+      final hasDigit = newValue.contains(RegExp(r'[0-9]'));
+      expect(hasDigit, isFalse);
+    });
+
+    test('Test hasDigits parameter set to true', () {
+      var generator = RandomStringGenerator(fixedLength: 10, hasDigits: true);
+      final newValue = generator.generate();
+      final hasDigit = newValue.contains(RegExp(r'[0-9]'));
+      expect(hasDigit, true);
     });
   });
 }
