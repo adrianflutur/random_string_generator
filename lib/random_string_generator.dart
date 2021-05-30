@@ -37,13 +37,13 @@ enum AlphaCase { UPPERCASE_ONLY, LOWERCASE_ONLY, MIXED_CASE }
 /// Can be used to generate passwords as well.
 class RandomStringGenerator {
   /// Generated string fixed length.
-  int fixedLength;
+  int? fixedLength;
 
   /// Generated string minimum length. (use min and max OR fixed, not both)
-  int minLength;
+  int? minLength;
 
   /// Generated string maximum length. (use min and max OR fixed, not both)
-  int maxLength;
+  int? maxLength;
 
   /// Boolean flag to specify if the generated string should have alpha characters in it.
   bool hasAlpha;
@@ -106,16 +106,16 @@ class RandomStringGenerator {
   bool mustHaveAtLeastOneOfEach;
 
   /// You might want to provide your custom uppercase alphabet.
-  List<String> customUpperAlphabet;
+  List<String>? customUpperAlphabet;
 
   /// You might want to provide your custom lowercase alphabet.
-  List<String> customLowerAlphabet;
+  List<String>? customLowerAlphabet;
 
   /// You might want to provide your custom digits.
-  List<String> customDigits;
+  List<String>? customDigits;
 
   /// You might want to provide your custom symbols.
-  List<String> customSymbols;
+  List<String>? customSymbols;
 
   /// Secure [Random] instance.
   final Random _secureRandom = Random.secure();
@@ -171,9 +171,10 @@ class RandomStringGenerator {
 
   /// Digits (as Strigs), created by generating the ASCII DEC values
   /// and converting them to their [String] representation.
-  static final _digitsAsciiToString = List<int>.generate(10, (int index) => index + 48)
-      .map((e) => String.fromCharCode(e))
-      .toList();
+  static final _digitsAsciiToString =
+      List<int>.generate(10, (int index) => index + 48)
+          .map((e) => String.fromCharCode(e))
+          .toList();
 
   /// Symbols, created by generating the ASCII DEC values
   /// and converting them to their [String] representation.
@@ -199,9 +200,9 @@ class RandomStringGenerator {
 
     if (minLength == null ||
         maxLength == null ||
-        minLength < 1 ||
-        maxLength <= minLength) {
-      if (fixedLength == null || fixedLength < 1) {
+        minLength! < 1 ||
+        maxLength! <= minLength!) {
+      if (fixedLength == null || fixedLength! < 1) {
         // didn't find either fixed or min and max
         throw RandomStringGeneratorException(
           'Random string length should be at least 1. '
@@ -239,7 +240,7 @@ class RandomStringGenerator {
       );
     }
 
-    var lengthToCheck = usingFixed ? fixedLength : minLength;
+    var lengthToCheck = usingFixed ? fixedLength! : minLength!;
     if (lengthToCheck < trueConditionsCounter && mustHaveAtLeastOneOfEach) {
       throw RandomStringGeneratorException(
         'You set $trueConditionsCounter "has" params to true and '
@@ -250,19 +251,21 @@ class RandomStringGenerator {
       );
     }
 
-    var _upperAlphabet = (customUpperAlphabet != null && customUpperAlphabet.isNotEmpty)
-        ? customUpperAlphabet
-        : _upperAlphabetAsciiToString;
+    var _upperAlphabet =
+        (customUpperAlphabet != null && customUpperAlphabet!.isNotEmpty)
+            ? customUpperAlphabet
+            : _upperAlphabetAsciiToString;
 
-    var _lowerAlphabet = (customLowerAlphabet != null && customLowerAlphabet.isNotEmpty)
-        ? customLowerAlphabet
-        : _lowerAlphabetAsciiToString;
+    var _lowerAlphabet =
+        (customLowerAlphabet != null && customLowerAlphabet!.isNotEmpty)
+            ? customLowerAlphabet
+            : _lowerAlphabetAsciiToString;
 
-    var _digits = (customDigits != null && customDigits.isNotEmpty)
+    var _digits = (customDigits != null && customDigits!.isNotEmpty)
         ? customDigits
         : _digitsAsciiToString;
 
-    var _symbols = (customSymbols != null && customSymbols.isNotEmpty)
+    var _symbols = (customSymbols != null && customSymbols!.isNotEmpty)
         ? customSymbols
         : _symbolsAsciiToString;
 
@@ -272,8 +275,8 @@ class RandomStringGenerator {
     if (hasAlpha) {
       switch (alphaCase) {
         case AlphaCase.MIXED_CASE:
-          everyPossibleCharacterASCII.addAll(_upperAlphabet);
-          everyPossibleCharacterASCII.addAll(_lowerAlphabet);
+          everyPossibleCharacterASCII.addAll(_upperAlphabet!);
+          everyPossibleCharacterASCII.addAll(_lowerAlphabet!);
 
           if (mustHaveAtLeastOneOfEach) {
             oneOfEach.add(
@@ -285,7 +288,7 @@ class RandomStringGenerator {
           }
           break;
         case AlphaCase.UPPERCASE_ONLY:
-          everyPossibleCharacterASCII.addAll(_upperAlphabet);
+          everyPossibleCharacterASCII.addAll(_upperAlphabet!);
 
           if (mustHaveAtLeastOneOfEach) {
             oneOfEach.add(
@@ -294,7 +297,7 @@ class RandomStringGenerator {
           }
           break;
         case AlphaCase.LOWERCASE_ONLY:
-          everyPossibleCharacterASCII.addAll(_lowerAlphabet);
+          everyPossibleCharacterASCII.addAll(_lowerAlphabet!);
 
           if (mustHaveAtLeastOneOfEach) {
             oneOfEach.add(
@@ -303,8 +306,8 @@ class RandomStringGenerator {
           }
           break;
         default:
-          everyPossibleCharacterASCII.addAll(_upperAlphabet);
-          everyPossibleCharacterASCII.addAll(_lowerAlphabet);
+          everyPossibleCharacterASCII.addAll(_upperAlphabet!);
+          everyPossibleCharacterASCII.addAll(_lowerAlphabet!);
 
           if (mustHaveAtLeastOneOfEach) {
             oneOfEach.add(
@@ -318,7 +321,7 @@ class RandomStringGenerator {
     }
 
     if (hasDigits) {
-      everyPossibleCharacterASCII.addAll(_digits);
+      everyPossibleCharacterASCII.addAll(_digits!);
 
       if (mustHaveAtLeastOneOfEach) {
         oneOfEach.add(_digits[_secureRandom.nextInt(_digits.length)]);
@@ -326,7 +329,7 @@ class RandomStringGenerator {
     }
 
     if (hasSymbols) {
-      everyPossibleCharacterASCII.addAll(_symbols);
+      everyPossibleCharacterASCII.addAll(_symbols!);
 
       if (mustHaveAtLeastOneOfEach) {
         oneOfEach.add(
@@ -337,13 +340,13 @@ class RandomStringGenerator {
 
     // start building the string
     var generatedString = <String>[];
-    int expectedStringLength;
+    var expectedStringLength;
 
     if (usingFixed) {
       expectedStringLength = fixedLength;
     } else {
-      var expectedMinLength = minLength;
-      var expectedMaxLength = maxLength;
+      var expectedMinLength = minLength!;
+      var expectedMaxLength = maxLength!;
 
       expectedStringLength = expectedMinLength +
           _secureRandom.nextInt(
@@ -356,7 +359,7 @@ class RandomStringGenerator {
       expectedStringLength -= generatedString.length;
     }
 
-    for (var i = 0; i < expectedStringLength; i++) {
+    for (var i = 0; i < expectedStringLength!; i++) {
       var newChar = everyPossibleCharacterASCII[
           _secureRandom.nextInt(everyPossibleCharacterASCII.length)];
       generatedString.add(newChar);

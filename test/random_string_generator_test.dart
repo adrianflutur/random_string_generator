@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('A group of tests', () {
-    RandomStringGenerator generator;
+    late RandomStringGenerator generator;
 
     setUp(() {
       generator = RandomStringGenerator(
@@ -35,6 +35,22 @@ void main() {
       }
 
       expect(ok, isTrue);
+    });
+  });
+
+  group('Specific tests', () {
+    test('Test hasDigits parameter set to false', () {
+      var generator = RandomStringGenerator(fixedLength: 10, hasDigits: false);
+      final newValue = generator.generate();
+      final hasDigit = newValue.contains(RegExp(r'[0-9]'));
+      expect(hasDigit, isFalse);
+    });
+
+    test('Test hasDigits parameter set to true', () {
+      var generator = RandomStringGenerator(fixedLength: 10, hasDigits: true);
+      final newValue = generator.generate();
+      final hasDigit = newValue.contains(RegExp(r'[0-9]'));
+      expect(hasDigit, true);
     });
   });
 }
