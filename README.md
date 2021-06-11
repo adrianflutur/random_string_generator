@@ -4,19 +4,15 @@
 
 An easy to use, customizable and secure random string generator.
 
-Can also be used as a password generator by using:
+Can also be used as a password generator by using the following option:
 
 ```dart
 mustHaveAtLeastOneOfEach = true
 ```
 
-# Usage
+**NEW** (2.0.0) > `PasswordStrengthChecker`, an util to check how strong a password generated with `RandomStringGenerator` is. The `checkStrength` static function will return one of the 4 enum values available: `VERY_WEAK, WEAK, GOOD and STRONG`, based on the `RegEx` patterns provided to it.
 
-### Import
-
-```dart
-import 'package:random_string_generator/random_string_generator.dart';
-```
+## Usage
 
 ### Basic usage
 

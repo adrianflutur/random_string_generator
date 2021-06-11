@@ -64,6 +64,7 @@ void main() {
         hasAlpha: true,
         hasDigits: true,
         hasSymbols: false,
+        mustHaveAtLeastOneOfEach: true,
       );
       final password = generator.generate();
       final strength = PasswordStrengthChecker.checkStrength(password);
@@ -77,6 +78,7 @@ void main() {
         hasAlpha: true,
         hasDigits: true,
         hasSymbols: true,
+        mustHaveAtLeastOneOfEach: true,
       );
       final password = generator.generate();
       final strength = PasswordStrengthChecker.checkStrength(password);
