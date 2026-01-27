@@ -1,10 +1,10 @@
 name: random_string_generator
 description: An easy to use, customizable and secure random string generator. Can also be used as a password generator.
 homepage: https://github.com/adrianflutur/random_string_generator
-version: 2.0.0
+version: 2.0.1
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dev_dependencies:
   pedantic: ^1.11.0

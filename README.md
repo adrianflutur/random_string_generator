@@ -1,3 +1,5 @@
+<h3>This package has been deprecated</h3>
+
 # random_string_generator
 
 [![pub package](https://shields.io/pub/v/random_string_generator.svg)](https://pub.dev/packages/random_string_generator)
